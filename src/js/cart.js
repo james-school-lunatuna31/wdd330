@@ -1,6 +1,15 @@
 import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
+  // old:   const cartItems = getLocalStorage('so-cart');
+  /* W2: Your first trello card SOLUTION
+  ---------------------------------------
+  The above fails because `getLocalStorage` returns a JSON string instead of an array.
+  We have to turn it into an array if we want to use the map function when setting html items.
+  NOTE: This setup only allows for a single item to be in the cart. Future trello cards may 
+  modify this function to allow for multiple items.
+  ---------------------------------------
+  */
   const cartItems = []
   cartItems.push(getLocalStorage('so-cart'));
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
