@@ -10,7 +10,7 @@ function renderCartContents() {
   modify this function to allow for multiple items.
   ---------------------------------------
   */
-  const cartItems = []
+  const cartItems = [];
   cartItems.push(getLocalStorage('so-cart'));
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
