@@ -44,7 +44,7 @@ function updateCartTotal() {
     cartItems = []; 
   }
 
-  if (cartItems.length > 0) {
+  if (cartItems.length > 0) { //checks if cart is empty 
     const total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
     const cartTotalElement = document.querySelector('.cart-total');
     const cartFooterElement = document.querySelector('.cart-footer');
