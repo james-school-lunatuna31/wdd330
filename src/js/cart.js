@@ -1,3 +1,4 @@
+import { removeProductFromCart } from './productDetails.mjs';
 import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
@@ -10,29 +11,70 @@ function renderCartContents() {
   modify this function to allow for multiple items.
   ---------------------------------------
   */
-  const cartItems = [];
-  cartItems.push(getLocalStorage('so-cart'));
+  const cartItems = getLocalStorage('so-cart') || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  document.querySelectorAll('.close_icon').forEach(button => {
+    button.addEventListener('click', function() {
+      const productId = this.dataset.id;
+      removeProductFromCart(productId);
+      renderCartContents() 
+      updateCartTotal()
+    });
+  });
 }
 
 function cartItemTemplate(item) {
   const newItem = `<li class='cart-card divider'>
-  <a href='#' class='cart-card__image'>
-    <img
-      src='${item.Image}'
-      alt='${item.Name}'
-    />
-  </a>
+  <div class="cart-card_interaction">
+  <button class="close_icon" data-id="${item.Id}"> X </button>
+
+  <div class='cart-card__image'>
+    <a href='#'>
+      <img
+        src='${item.Image}'
+        alt='${item.Name}'
+      />
+    </a>
+    </div>
+  </div>
   <a href='#'>
     <h2 class='card__name'>${item.Name}</h2>
   </a>
   <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
-  <p class='cart-card__quantity'>qty: 1</p>
+  <p class='cart-card__quantity'>qty: ${item.quantity}</p>
   <p class='cart-card__price'>$${item.FinalPrice}</p>
 </li>`;
-
   return newItem;
 }
 
+
+function updateCartTotal() {
+  let cartItems = (getLocalStorage('so-cart'))
+  if (cartItems) {
+    cartItems = [cartItems]; 
+  } else {
+    cartItems = []; 
+  }
+
+  if (cartItems.length > 0) { //checks if cart is empty 
+    let total = 0;
+
+  cartItems = cartItems.flat(); //cartItems is 2D and it needs to be 1D
+  cartItems.forEach(item => {
+    total += item.FinalPrice * item.quantity;
+  });
+     total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+    const cartTotalElement = document.querySelector('.cart-total');
+    const cartFooterElement = document.querySelector('.cart-footer');
+    cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    cartFooterElement.classList.remove('hide');
+  }else{
+    const cartFooterElement = document.querySelector('.cart-footer');
+    cartFooterElement.classList.add('hide');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', updateCartTotal);
 renderCartContents();
+ 
