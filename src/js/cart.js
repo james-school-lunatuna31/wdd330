@@ -35,4 +35,23 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+
+function updateCartTotal() {
+  let cartItems = (getLocalStorage('so-cart'))
+  if (cartItems) {
+    cartItems = [cartItems]; 
+  } else {
+    cartItems = []; 
+  }
+
+  if (cartItems.length > 0) {
+    const total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+    const cartTotalElement = document.querySelector('.cart-total');
+    const cartFooterElement = document.querySelector('.cart-footer');
+    cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    cartFooterElement.classList.remove('hide');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', updateCartTotal);
 renderCartContents();
