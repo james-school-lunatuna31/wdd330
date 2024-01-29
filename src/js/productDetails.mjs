@@ -6,11 +6,11 @@ let product = {}
 export default async function productDetails(productId) {
   product = await findProductById(productId);
   renderProductDetails(product);
- document.getElementById('addToCart').addEventListener('click', addProductToCart());
+ document.getElementById('addToCart').addEventListener('click', addProductToCart);
 }
 
 export function addProductToCart() {
-  setLocalStorage("so-cart", product);
+  setLocalStorage('so-cart', product);
 }
 
 export function renderProductDetails() {
