@@ -18,7 +18,6 @@ function renderCartContents() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      renderCartContents() 
       updateCartTotal()
     });
   });
@@ -50,13 +49,7 @@ function cartItemTemplate(item) {
 
 
 function updateCartTotal() {
-  let cartItems = (getLocalStorage('so-cart'))
-  if (cartItems) {
-    cartItems = [cartItems]; 
-  } else {
-    cartItems = []; 
-  }
-
+  let cartItems = (getLocalStorage('so-cart'))|| []
   if (cartItems.length > 0) { //checks if cart is empty 
     let total = 0;
 
@@ -73,6 +66,7 @@ function updateCartTotal() {
     const cartFooterElement = document.querySelector('.cart-footer');
     cartFooterElement.classList.add('hide');
   }
+  renderCartContents();
 }
 
 document.addEventListener('DOMContentLoaded', updateCartTotal);
