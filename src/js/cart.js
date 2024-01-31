@@ -1,5 +1,4 @@
-import { removeProductFromCart } from './productDetails.mjs';
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
 function renderCartContents() {
   // old:   const cartItems = getLocalStorage('so-cart');
@@ -49,15 +48,15 @@ function cartItemTemplate(item) {
 
 
 function updateCartTotal() {
-  let cartItems = (getLocalStorage('so-cart'))|| []
-  if (cartItems.length > 0) { //checks if cart is empty 
+  let cartItems = (getLocalStorage('so-cart')) || []
+  if (cartItems.length > 0) { //checks if cart is empty
     let total = 0;
 
   cartItems = cartItems.flat(); //cartItems is 2D and it needs to be 1D
   cartItems.forEach(item => {
     total += item.FinalPrice * item.quantity;
   });
-     
+
     const cartTotalElement = document.querySelector('.cart-total');
     const cartFooterElement = document.querySelector('.cart-footer');
     cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
@@ -66,9 +65,22 @@ function updateCartTotal() {
     const cartFooterElement = document.querySelector('.cart-footer');
     cartFooterElement.classList.add('hide');
   }
-  renderCartContents();
 }
 
+function removeProductFromCart(productId) {
+  let cartItems = getLocalStorage('so-cart') || [];
+  if(cartItems.length){
+  const existingProductIndex = cartItems.findIndex(item => item.Id === productId);
+   if (existingProductIndex !== -1) {
+    if(cartItems[existingProductIndex].quantity > 1){
+      cartItems[existingProductIndex].quantity = cartItems[existingProductIndex].quantity - 1;
+    }
+    else{
+      cartItems.splice(existingProductIndex, 1);
+     }
+    }
+  setLocalStorage('so-cart', cartItems);
+}
+}
 document.addEventListener('DOMContentLoaded', updateCartTotal);
 renderCartContents();
- 
