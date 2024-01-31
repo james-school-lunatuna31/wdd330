@@ -64,7 +64,7 @@ function updateCartTotal() {
   cartItems.forEach(item => {
     total += item.FinalPrice * item.quantity;
   });
-     total = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+     
     const cartTotalElement = document.querySelector('.cart-total');
     const cartFooterElement = document.querySelector('.cart-footer');
     cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
