@@ -12,7 +12,11 @@ function renderCartContents() {
   */
   const cartItems = []
   cartItems.push(getLocalStorage('so-cart'));
-  if (!cartItems.length) {
+const cartItem = (getLocalStorage('so-cart'));
+  if (cartItem) { 
+    cartItems.push(cartItem);
+  }
+    if (cartItems.length) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
   }
