@@ -25,8 +25,8 @@ function renderCartContents() {
 
 function cartItemTemplate(item) {
   const newItem = `<li class='cart-card divider'>
-  <div class="cart-card_interaction">
-  <button class="close_icon" data-id="${item.Id}"> X </button>
+  <div class='cart-card_interaction'>
+  <button class='close_icon' data-id='${item.Id}'> X </button>
 
   <div class='cart-card__image'>
     <a href='#'>
