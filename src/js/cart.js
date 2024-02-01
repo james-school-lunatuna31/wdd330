@@ -18,6 +18,7 @@ function renderCartContents() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
       updateCartTotal()
+      renderCartContents();
     });
   });
 }
