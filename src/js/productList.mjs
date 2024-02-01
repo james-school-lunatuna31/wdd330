@@ -1,5 +1,5 @@
-import { getData } from './productData.mjs'
-import { renderListWithTemplate } from "./utils.mjs";
+import { getData } from './productData.mjs';
+import { renderListWithTemplate } from './utils.mjs';
 
 export default async function productList(category, selector){
     const data = await getData(category);
