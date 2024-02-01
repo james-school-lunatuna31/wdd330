@@ -21,7 +21,7 @@ const cartItem = (getLocalStorage('so-cart'));
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
   }
   else {
-    document.querySelector('.product-list').innerHTML = '<p>You\'re cart is empty.<p>'
+    document.querySelector('.product-list').innerHTML = '<p>Your cart is empty.<p>'
   }
   
 }
