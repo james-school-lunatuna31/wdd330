@@ -4,9 +4,21 @@ import { getLocalStorage, setLocalStorage } from './utils.mjs';
 let product = {}
 
 export default async function productDetails(productId) {
+  try{
   product = await findProductById(productId);
+  if(product === undefined){
+    throw new ReferenceError('Product ID not found');
+  }
   renderProductDetails(product);
- document.getElementById('addToCart').addEventListener('click', addProductToCart);
+  document.getElementById('addToCart').addEventListener('click', addProductToCart);
+  }catch(error){
+  if (error instanceof ReferenceError) {
+    // I used productName here because it places the text in an appropriate place.
+  document.querySelector('#productName').innerHTML += '<p>Invalid product ID. Please check the URL and try again.</p>';
+}else{
+    throw error; // if something else broke this, we don't want it.
+  }
+  }
 }
 
 export function addProductToCart() {
