@@ -224,6 +224,9 @@ button {
   grid-column: 3;
 }
 
+#addToCart{
+  display:none; /* hidden until we enable */
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

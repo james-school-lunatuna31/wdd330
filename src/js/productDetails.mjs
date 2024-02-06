@@ -15,7 +15,6 @@ export default async function productDetails(productId) {
   if (error instanceof ReferenceError) {
     // I used productName here because it places the text in an appropriate place.
   document.querySelector('#productName').innerHTML += '<p>Invalid product ID. Please check the URL and try again.</p>';
-}else{
     throw error; // if something else broke this, we don't want it.
   }
   }
@@ -44,4 +43,6 @@ export function renderProductDetails() {
   document.querySelector('#productColorName').innerText = product.Colors[0].ColorName;
   document.querySelector('#productDescriptionHtmlSimple').innerHTML = product.DescriptionHtmlSimple;
   document.querySelector('#addToCart').dataset.id = product.Id;
+  document.querySelector('#addToCart').style.display = 'block';
+
 }
