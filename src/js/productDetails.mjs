@@ -15,6 +15,13 @@ export default async function productDetails(productId) {
   if (error instanceof ReferenceError) {
     // I used productName here because it places the text in an appropriate place.
   document.querySelector('#productName').innerHTML += '<p>Invalid product ID. Please check the URL and try again.</p>';
+  
+    const backButton = document.createElement('button');
+    backButton.style.backgroundColor = '#f06868'; 
+    backButton.innerText = 'Back';
+    backButton.onclick = () => window.location.href = '/';
+    document.querySelector('#productName').appendChild(backButton);
+
     throw error; // if something else broke this, we don't want it.
   }
   }
