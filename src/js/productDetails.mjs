@@ -6,26 +6,26 @@ let product = {}
 export default async function productDetails(productId) {
   try{
   product = await findProductById(productId);
-  if(product === undefined){
-    throw new ReferenceError('Product ID not found');
-  }
   renderProductDetails(product);
   document.getElementById('addToCart').addEventListener('click', addProductToCart);
   }catch(error){
-  if (error instanceof ReferenceError) {
-    // I used productName here because it places the text in an appropriate place.
-  document.querySelector('#productName').innerHTML += '<p>Invalid product ID. Please check the URL and try again.</p>';
-  
-    const backButton = document.createElement('button');
-    backButton.style.backgroundColor = '#f06868'; 
-    backButton.innerText = 'Back';
-    backButton.onclick = () => window.location.href = '/';
-    document.querySelector('#productName').appendChild(backButton);
-
-    throw error; // if something else broke this, we don't want it.
-  }
+    renderProductErrorDetails(productId, error.message === `Product with id ${productId} not found.`);
   }
 }
+
+function renderProductErrorDetails(productId, unexpected = false){
+  // If this were real production, we would want to render an error page. But I think this fits better here for an education env.
+  // I am also not a huge fan of canibalizing the ID tags, but if it works it works.
+  // The below can tell the difference between a bad product ID and another error. Syntax is <bool> : value if true : value if false
+  let errorMessage = unexpected ? '<p>An Unexpected Error has occured.</p>' : '<p>Invalid product ID. Please check the URL and try again.</p>';
+  document.querySelector('#productName').innerHTML += errorMessage;
+  const backButton = document.createElement('button');
+  backButton.style.backgroundColor = '#f06868'; 
+  backButton.innerText = 'Back';
+  backButton.onclick = () => window.location.href = '/';
+  document.querySelector('#productName').appendChild(backButton);
+}
+
 
 export function addProductToCart() {
   let cartItems = getLocalStorage('so-cart') || [];
