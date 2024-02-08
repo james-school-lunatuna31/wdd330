@@ -20,7 +20,8 @@ function renderCartContents() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      updateCartTotal()
+      updateCartCounter();
+      updateCartTotal();
       renderCartContents();
     });
   });
