@@ -1,4 +1,9 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { loadCart } from './shoppingCart.mjs';
+import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
+loadHeaderFooter();
+loadCart();
+renderCartContents();
+
 
 function renderCartContents() {
   // old:   const cartItems = getLocalStorage('so-cart');
@@ -14,6 +19,7 @@ function renderCartContents() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (cartItems.length) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector('.product-list');
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
     document.querySelectorAll('.close_icon').forEach(button => {
     button.addEventListener('click', function() {
@@ -89,5 +95,5 @@ function removeProductFromCart(productId) {
   setLocalStorage('so-cart', cartItems);
 }
 }
+
 document.addEventListener('DOMContentLoaded', updateCartTotal);
-renderCartContents();
