@@ -103,6 +103,18 @@ button {
   text-align: center;
 }
 
+.cart-counter {
+  font-size: small;
+  border-radius: 50%;
+  background-color: burlywood;
+  padding: .5em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 2em;
+  height: 2em;
+}
+
 .cart svg {
   width: 25px;
 }

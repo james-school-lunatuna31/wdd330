@@ -6,7 +6,7 @@ let product = {}
 export default async function productDetails(productId) {
   product = await findProductById(productId);
   renderProductDetails(product);
- document.getElementById('addToCart').addEventListener('click', addProductToCart);
+ document.getElementById('addToCart').addEventListener('click', () => {addProductToCart(); updateCartCounter();});
 }
 
 export function addProductToCart() {
@@ -19,7 +19,6 @@ export function addProductToCart() {
     cartItems.push(product);
   }
   setLocalStorage('so-cart', cartItems);
-
 }
 
 export function renderProductDetails() {
@@ -32,4 +31,16 @@ export function renderProductDetails() {
   document.querySelector('#productColorName').innerText = product.Colors[0].ColorName;
   document.querySelector('#productDescriptionHtmlSimple').innerHTML = product.DescriptionHtmlSimple;
   document.querySelector('#addToCart').dataset.id = product.Id;
+}
+
+export function updateCartCounter() {
+  let cartIcon = document.querySelector('.cart');
+  let cart = getLocalStorage('so-cart');
+  if (cart !== null) {
+    let cartItemsByQty = cart.map(item => {return item.quantity;});
+    let cartQty = cartItemsByQty.reduce((currentTotal, currentValue) => {return currentTotal + currentValue;});
+    cartIcon.insertAdjacentHTML('afterbegin', `<span class="cart-counter">${cartQty}</span>`);
+    cartIcon.querySelector('.cart-counter').innerText = cartQty;
+  }
+  
 }
