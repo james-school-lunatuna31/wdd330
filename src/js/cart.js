@@ -1,6 +1,13 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { loadCart } from './shoppingCart.mjs';
+import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
+init()
 import { updateCartCounter } from './productDetails.mjs';
 
+async function init(){
+ await  loadHeaderFooter();
+  await loadCart();
+  renderCartContents();
+}
 function renderCartContents() {
   // old:   const cartItems = getLocalStorage('so-cart');
   /* W2: Your first trello card SOLUTION
@@ -15,6 +22,7 @@ function renderCartContents() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (cartItems.length) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector('.product-list');
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
     document.querySelectorAll('.close_icon').forEach(button => {
     button.addEventListener('click', function() {
@@ -25,6 +33,7 @@ function renderCartContents() {
       renderCartContents();
     });
   });
+  
   }else{
         document.querySelector('.product-list').innerHTML = '<p>Your cart is empty.<p>'
   }
@@ -91,6 +100,7 @@ function removeProductFromCart(productId) {
   setLocalStorage('so-cart', cartItems);
 }
 }
+
 document.addEventListener('DOMContentLoaded', updateCartTotal);
-renderCartContents();
+document.addEventListener('DOMContentLoaded', renderCartContents);
 document.addEventListener('DOMContentLoaded', updateCartCounter);
