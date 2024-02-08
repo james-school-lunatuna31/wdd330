@@ -29,6 +29,7 @@ function renderCartContents() {
       renderCartContents();
     });
   });
+  
   }else{
         document.querySelector('.product-list').innerHTML = '<p>Your cart is empty.<p>'
   }
