@@ -1,10 +1,12 @@
 import { loadCart } from './shoppingCart.mjs';
 import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
-loadHeaderFooter();
-loadCart();
-renderCartContents();
+init()
 
-
+async function init(){
+ await  loadHeaderFooter();
+  await loadCart();
+  renderCartContents();
+}
 function renderCartContents() {
   // old:   const cartItems = getLocalStorage('so-cart');
   /* W2: Your first trello card SOLUTION
@@ -98,3 +100,4 @@ function removeProductFromCart(productId) {
 }
 
 document.addEventListener('DOMContentLoaded', updateCartTotal);
+document.addEventListener('DOMContentLoaded', renderCartContents);
