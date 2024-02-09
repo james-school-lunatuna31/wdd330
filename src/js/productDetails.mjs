@@ -22,6 +22,7 @@ export function addProductToCart() {
 
 }
 
+// updated: added discount  
 export function renderProductDetails() {
   document.querySelector('#productName').innerText = product.Brand.Name;
   document.querySelector('#productNameWithoutBrand').innerText =
@@ -32,4 +33,13 @@ export function renderProductDetails() {
   document.querySelector('#productColorName').innerText = product.Colors[0].ColorName;
   document.querySelector('#productDescriptionHtmlSimple').innerHTML = product.DescriptionHtmlSimple;
   document.querySelector('#addToCart').dataset.id = product.Id;
+
+  // set discount amount 
+  const discountPercentage = 10;
+  // Calculate, and inject the discounted price
+  const discountedPrice = product.FinalPrice * (1 - discountPercentage / 100);
+  const discountIndicator = document.createElement('span');
+  discountIndicator.innerText = `Seasonal Sale! ${discountPercentage}%  (Price: $${discountedPrice.toFixed(2)})`;
+  document.querySelector('#discountIndicator').innerHTML = ''; // Clear previous content
+  document.querySelector('#discountIndicator').appendChild(discountIndicator);
 }
