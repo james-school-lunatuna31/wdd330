@@ -1,3 +1,4 @@
+import { updateCartCounter } from "./productDetails.mjs";
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -66,4 +67,5 @@ export async function loadHeaderFooter(){
   const footer = document.querySelector('footer');
   renderWithTemplate(headerTemplateFn,header);
   renderWithTemplate(footerTemplateFn,footer);
+  updateCartCounter();
 }

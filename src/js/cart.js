@@ -1,7 +1,9 @@
 import { loadCart } from './shoppingCart.mjs';
 import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
-init()
 import { updateCartCounter } from './productDetails.mjs';
+
+init()
+
 
 async function init(){
  await  loadHeaderFooter();
@@ -31,6 +33,7 @@ function renderCartContents() {
       updateCartCounter();
       updateCartTotal();
       renderCartContents();
+      updateCartCounter();
     });
   });
   
@@ -101,6 +104,6 @@ function removeProductFromCart(productId) {
 }
 }
 
+
 document.addEventListener('DOMContentLoaded', updateCartTotal);
 document.addEventListener('DOMContentLoaded', renderCartContents);
-document.addEventListener('DOMContentLoaded', updateCartCounter);

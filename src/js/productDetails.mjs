@@ -38,11 +38,9 @@ export function updateCartCounter() {
   let cart = getLocalStorage('so-cart');
   if (cart !== null) {
     let cartItemsByQty = cart.map(item => {return item.quantity;});
-    let cartQty = cartItemsByQty.reduce((currentTotal, currentValue) => {return currentTotal + currentValue;});
-    let cartCounter = cartIcon.querySelector('.cart-counter')
-    if (cartCounter == null) {
+    let cartQty = cartItemsByQty.reduce((currentTotal, currentValue) => {return currentTotal + currentValue;}); 
+    if (cartIcon.querySelector('.cart-counter') == null) {
       cartIcon.insertAdjacentHTML('afterbegin', `<span class="cart-counter">${cartQty}</span>`);
     } else {cartIcon.querySelector('.cart-counter').innerText = cartQty;}
   }
-  
 }
