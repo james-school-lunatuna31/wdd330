@@ -1,8 +1,7 @@
-import { getParam } from './utils.mjs';
+import { getParam, loadHeaderFooter } from './utils.mjs';
 import productDetails from './productDetails.mjs';
-import { updateCartCounter } from './productDetails.mjs';
 
 const productId = getParam('product');
 productDetails(productId);
+loadHeaderFooter();
 
-document.addEventListener('DOMContentLoaded', updateCartCounter);

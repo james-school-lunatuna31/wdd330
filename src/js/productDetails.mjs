@@ -1,5 +1,5 @@
 import { findProductById } from './productData.mjs';
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { updateCartCounter, getLocalStorage, setLocalStorage } from './utils.mjs';
 
 let product = {}
 
@@ -31,16 +31,4 @@ export function renderProductDetails() {
   document.querySelector('#productColorName').innerText = product.Colors[0].ColorName;
   document.querySelector('#productDescriptionHtmlSimple').innerHTML = product.DescriptionHtmlSimple;
   document.querySelector('#addToCart').dataset.id = product.Id;
-}
-
-export function updateCartCounter() {
-  let cartIcon = document.querySelector('.cart');
-  let cart = getLocalStorage('so-cart');
-  if (cart !== null) {
-    let cartItemsByQty = cart.map(item => {return item.quantity;});
-    let cartQty = cartItemsByQty.reduce((currentTotal, currentValue) => {return currentTotal + currentValue;}); 
-    if (cartIcon.querySelector('.cart-counter') == null) {
-      cartIcon.insertAdjacentHTML('afterbegin', `<span class="cart-counter">${cartQty}</span>`);
-    } else {cartIcon.querySelector('.cart-counter').innerText = cartQty;}
-  }
 }

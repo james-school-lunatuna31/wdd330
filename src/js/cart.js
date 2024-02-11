@@ -1,6 +1,5 @@
 import { loadCart } from './shoppingCart.mjs';
-import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
-import { updateCartCounter } from './productDetails.mjs';
+import { getLocalStorage, loadHeaderFooter, setLocalStorage, updateCartCounter } from './utils.mjs';
 
 init()
 
@@ -101,9 +100,8 @@ function removeProductFromCart(productId) {
      }
     }
   setLocalStorage('so-cart', cartItems);
+  updateCartCounter();
 }
 }
 
-
-document.addEventListener('DOMContentLoaded', updateCartTotal);
 document.addEventListener('DOMContentLoaded', renderCartContents);
