@@ -80,12 +80,12 @@ export function updateCartCounter() {
   }
 }
 
-  function getItemQuantityInCart(){
-    let cart = getLocalStorage('so-cart') || []
-    let cartItems = cart.flat(); //cartItems is 2D and it needs to be 1D
-    let total = 0
-    cartItems.forEach(item => {
-      total += item.quantity;
-    });
-    return total
-  }
+function getItemQuantityInCart(){
+  let cart = getLocalStorage('so-cart') || []
+  let cartItems = cart.flat(); //cartItems is 2D and it needs to be 1D
+  let total = 0
+  cartItems.forEach(item => {
+    total += item.quantity;
+  });
+  return total
+}
