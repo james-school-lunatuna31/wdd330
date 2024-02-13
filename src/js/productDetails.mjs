@@ -1,5 +1,5 @@
 import { findProductById } from './productData.mjs';
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { updateCartCounter, getLocalStorage, setLocalStorage } from './utils.mjs';
 
 let product = {}
 
@@ -7,7 +7,7 @@ export default async function productDetails(productId) {
   try{
   product = await findProductById(productId);
   renderProductDetails(product);
-  document.getElementById('addToCart').addEventListener('click', addProductToCart);
+ document.getElementById('addToCart').addEventListener('click', () => {addProductToCart(); updateCartCounter();});
   }catch(error){
     renderProductErrorDetails(productId, error.message === `Product with id ${productId} not found.`);
   }
@@ -37,7 +37,6 @@ export function addProductToCart() {
     cartItems.push(product);
   }
   setLocalStorage('so-cart', cartItems);
-
 }
 
 export function renderProductDetails() {

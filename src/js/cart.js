@@ -1,6 +1,8 @@
 import { loadCart } from './shoppingCart.mjs';
-import { getLocalStorage, loadHeaderFooter, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, loadHeaderFooter, setLocalStorage, updateCartCounter } from './utils.mjs';
+
 init()
+
 
 async function init(){
  await  loadHeaderFooter();
@@ -27,8 +29,10 @@ function renderCartContents() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      updateCartTotal()
+      updateCartCounter();
+      updateCartTotal();
       renderCartContents();
+      updateCartCounter();
     });
   });
   
@@ -96,8 +100,8 @@ function removeProductFromCart(productId) {
      }
     }
   setLocalStorage('so-cart', cartItems);
+  updateCartCounter();
 }
 }
 
-document.addEventListener('DOMContentLoaded', updateCartTotal);
 document.addEventListener('DOMContentLoaded', renderCartContents);
