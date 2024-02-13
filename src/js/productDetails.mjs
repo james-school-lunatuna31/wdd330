@@ -7,7 +7,7 @@ export default async function productDetails(productId) {
   try{
   product = await findProductById(productId);
   renderProductDetails(product);
- document.getElementById('addToCart').addEventListener('click', () => {addProductToCart(); updateCartCounter();});
+ document.getElementById('addToCart').addEventListener('click', () => {addProductToCart();});
   }catch(error){
     renderProductErrorDetails(productId, error.message === `Product with id ${productId} not found.`);
   }
