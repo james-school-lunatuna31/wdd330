@@ -91,6 +91,7 @@ button {
   font-size: var(--large-font);
   cursor: pointer;
 }
+
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
@@ -236,6 +237,9 @@ button {
   grid-column: 3;
 }
 
+#addToCart{
+  display:none; /* hidden until we enable */
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
