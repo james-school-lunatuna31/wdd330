@@ -5,7 +5,7 @@ init()
 
 
 async function init(){
- await  loadHeaderFooter();
+  await  loadHeaderFooter();
   await loadCart();
   renderCartContents();
 }
@@ -19,6 +19,7 @@ function renderCartContents() {
   modify this function to allow for multiple items.
   ---------------------------------------
   */
+  updateCartTotal();
 
   const cartItems = getLocalStorage('so-cart') || [];
   if (cartItems.length) {
@@ -29,10 +30,7 @@ function renderCartContents() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      updateCartCounter();
-      updateCartTotal();
       renderCartContents();
-      updateCartCounter();
     });
   });
   
