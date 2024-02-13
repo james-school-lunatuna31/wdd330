@@ -29,10 +29,8 @@ function renderCartContents() {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      updateCartCounter();
       updateCartTotal();
       renderCartContents();
-      updateCartCounter();
     });
   });
   

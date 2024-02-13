@@ -1,5 +1,5 @@
 import { findProductById } from './productData.mjs';
-import { updateCartCounter, getLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, updateCartCounter } from './utils.mjs';
 
 let product = {}
 
@@ -37,6 +37,7 @@ export function addProductToCart() {
     cartItems.push(product);
   }
   setLocalStorage('so-cart', cartItems);
+  updateCartCounter();
 }
 
 export function renderProductDetails() {

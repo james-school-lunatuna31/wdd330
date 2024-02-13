@@ -71,17 +71,21 @@ export async function loadHeaderFooter(){
 
 export function updateCartCounter() {
   let cartIcon = document.querySelector('.cart');
-  let cart = getLocalStorage('so-cart') || []
   const existingCartCounter = document.querySelector('.cart-counter');
   if (existingCartCounter) {
     existingCartCounter.remove();
-    if (getItemQuantityInCart() > 0) {
-      cartIcon.insertAdjacentHTML('afterbegin', `<span class="cart-counter">${getItemQuantityInCart()}</span>`);
-    }
   }
-    // let cartItemsByQty = cart.map(item => {return item.quantity;});
-    // let cartQty = cartItemsByQty.reduce((currentTotal, currentValue) => {return currentTotal + currentValue;}); 
-    // if (cartIcon.querySelector('.cart-counter') == null) {
-      
-    // } else {cartIcon.querySelector('.cart-counter').innerText = cartQty;}
+  if (getItemQuantityInCart() > 0) {
+    cartIcon.insertAdjacentHTML('afterbegin', `<span class="cart-counter">${getItemQuantityInCart()}</span>`);
+  }
 }
+
+  function getItemQuantityInCart(){
+    let cart = getLocalStorage('so-cart') || []
+    let cartItems = cart.flat(); //cartItems is 2D and it needs to be 1D
+    let total = 0
+    cartItems.forEach(item => {
+      total += item.quantity;
+    });
+    return total
+  }
