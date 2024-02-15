@@ -1,15 +1,17 @@
-import { getData } from './productData.mjs';
-import { renderListWithTemplate } from './utils.mjs';
+import { getData } from "./productData.mjs";
+import { renderListWithTemplate } from "./utils.mjs";
 
-export default async function productList(category, selector){
-    let data = (await getData(category)).filter(product => product.Id !== '880RT' && product.Id !== '989CG');
-    let ele = document.querySelector(selector);
-    renderListWithTemplate(productCardTemplate, ele, data);
+export default async function productList(category, selector) {
+  let data = (await getData(category)).filter(
+    (product) => product.Id !== "880RT" && product.Id !== "989CG"
+  );
+  let ele = document.querySelector(selector);
+  renderListWithTemplate(productCardTemplate, ele, data);
 }
 
 function productCardTemplate(product) {
-    return `<li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+  return `<li class="product-card">
+    <a href="/product_pages/index.html?product=${product.Id}">
       <img
         src=${product.Image}
         alt=${product.Name}
