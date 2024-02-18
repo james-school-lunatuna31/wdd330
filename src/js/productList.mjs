@@ -12,7 +12,7 @@ export default async function productList(category, selector) {
 function productCardTemplate(product) {
   const baseUrl = window.location.origin;
   return `<li class="product-card">
-    <a href="${baseUrl}/product_pages/index.html?product=${product.Id}">
+    <a href="product_pages/index.html?product=${product.Id}">
       <img
         src=${product.Image}
         alt=${product.Name}
