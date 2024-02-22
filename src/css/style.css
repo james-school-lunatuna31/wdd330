@@ -241,10 +241,16 @@ button {
   display: none; /* hidden until we enable */
 }
 
-/* temporary */
-.category-grid img {
-  max-width: 4rem;
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10%;
+  padding: 2rem;
+  max-width: 80%;
+  margin: auto;
 }
+
 
 @media screen and (min-width: 500px) {
   body {

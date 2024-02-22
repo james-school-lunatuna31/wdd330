@@ -21,9 +21,7 @@ export async function getData(category) {
 }
 
 export async function findProductById(id) {
-  const products = await getData();
-  if (products === undefined) {
-    throw new Error(`Product with id ${id} not found.`);
-  }
-  return products.find((item) => item.Id === id);
+  const response = await fetch(baseURL + `product/${id}`);
+  const products = await convertToJson(response);
+  return products.Result;
 }
