@@ -10,8 +10,14 @@
   <body>
     <header id="main" class="divider"></header>
     <main class="divider">
+      <label for="sort-by">Sort By:</label>
+      <select name="sort-by" id="sort-by">
+        <option value="">Select Option...</option>
+        <option value="alpha"> Name - A to Z</option>
+        <option value="price">Price - Low to High</option>
+      </select>
       <section class="products">
-        <h2>Top Products</h2>
+        <h2 class="title">Top Products</h2>
         <ul class="product-list"></ul>
       </section>
     </main>
