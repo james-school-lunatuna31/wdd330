@@ -15,11 +15,11 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
+  qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
     callback();
   });
-  qs(selector).addEventListener("click", callback);
+  qs(selector).addEventListener('click', callback);
 }
 
 // add pram to the peramaters later?
@@ -33,14 +33,14 @@ export function renderListWithTemplate(
   templateFn,
   parentElement,
   list,
-  position = "afterbegin",
+  position = 'afterbegin',
   clear = true
 ) {
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = '';
   }
   const htmlStrings = list.map(templateFn);
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
 export function renderWithTemplate(
@@ -48,11 +48,11 @@ export function renderWithTemplate(
   parentElement,
   callback,
   data,
-  position = "afterbegin",
+  position = 'afterbegin',
   clear = true
 ) {
   if (clear) {
-    parentElement.innerHTML = "";
+    parentElement.innerHTML = '';
   }
   //const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, templateFn);
@@ -72,31 +72,31 @@ export function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplateFn = await loadTemplate("/partials/header.html")();
-  const footerTemplateFn = await loadTemplate("/partials/footer.html")();
-  const header = document.querySelector("header");
-  const footer = document.querySelector("footer");
+  const headerTemplateFn = await loadTemplate('/partials/header.html')();
+  const footerTemplateFn = await loadTemplate('/partials/footer.html')();
+  const header = document.querySelector('header');
+  const footer = document.querySelector('footer');
   renderWithTemplate(headerTemplateFn, header);
   renderWithTemplate(footerTemplateFn, footer);
   updateCartCounter();
 }
 
 export function updateCartCounter() {
-  let cartIcon = document.querySelector(".cart");
-  const existingCartCounter = document.querySelector(".cart-counter");
+  let cartIcon = document.querySelector('.cart');
+  const existingCartCounter = document.querySelector('.cart-counter');
   if (existingCartCounter) {
     existingCartCounter.remove();
   }
   if (getItemQuantityInCart() > 0) {
     cartIcon.insertAdjacentHTML(
-      "afterbegin",
+      'afterbegin',
       `<span class="cart-counter">${getItemQuantityInCart()}</span>`
     );
   }
 }
 
 function getItemQuantityInCart() {
-  let cart = getLocalStorage("so-cart") || [];
+  let cart = getLocalStorage('so-cart') || [];
   let cartItems = cart.flat(); //cartItems is 2D and it needs to be 1D
   let total = 0;
   cartItems.forEach((item) => {

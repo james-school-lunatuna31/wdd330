@@ -1,10 +1,10 @@
-import { getData } from "./productData.mjs";
-import { getParam, renderListWithTemplate } from "./utils.mjs";
+import { getData } from './productData.mjs';
+import { getParam, renderListWithTemplate } from './utils.mjs';
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export default async function productList(category, selector) {
   let data = (await getData(category)).filter(
-    (product) => product.Id !== "880RT" && product.Id !== "989CG"
+    (product) => product.Id !== '880RT' && product.Id !== '989CG'
   );
   let ele = document.querySelector(selector);
   let title = document.querySelector('.title');
@@ -30,7 +30,7 @@ function productCardTemplate(product) {
 export async function sortCards() {
   let category = getParam('category')
   let data = (await getData(category)).filter(
-      (product) => product.Id !== "880RT" && product.Id !== "989CG");
+      (product) => product.Id !== '880RT' && product.Id !== '989CG');
   let ele = document.querySelector('.product-list');
   let selectBox = document.querySelector('#sort-by');
   if (selectBox.value == 'alpha') {
