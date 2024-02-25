@@ -41,6 +41,11 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  // Calculate discounted price
+  const discountPercentage = 10; // Assuming a fixed 10% discount
+  const discountedPrice = item.FinalPrice * (1 - discountPercentage / 100);
+
+  
   const newItem = `<li class='cart-card divider'>
   <div class='cart-card_interaction'>
   <button class='close_icon' data-id='${item.Id}'> X </button>
@@ -59,20 +64,29 @@ function cartItemTemplate(item) {
   </a>
   <p class='cart-card__color'>${item.Colors[0].ColorName}</p>
   <p class='cart-card__quantity'>qty: ${item.quantity}</p>
-  <p class='cart-card__price'>$${item.FinalPrice}</p>
+    <p class='cart-card__price'>$${discountedPrice.toFixed(2)} (Discounted)</p>
 </li>`;
   return newItem;
 }
 
+// removed outdated price section
+// <p class='cart-card__price'>$${item.FinalPrice}</p>
 
 function updateCartTotal() {
   let cartItems = (getLocalStorage('so-cart')) || []
   if (cartItems.length > 0) { //checks if cart is empty
     let total = 0;
 
-  cartItems = cartItems.flat(); //cartItems is 2D and it needs to be 1D
+  // This is the outdated price of cart, needed to reflect discount
+  // cartItems = cartItems.flat(); //cartItems is 2D and it needs to be 1D
+  // cartItems.forEach(item => {
+  // total += item.FinalPrice * item.quantity;
+
+  // Calculate total based on discounted prices
   cartItems.forEach(item => {
-    total += item.FinalPrice * item.quantity;
+    const discountPercentage = 10; // Assuming a fixed 10% discount
+    const discountedPrice = item.FinalPrice * (1 - discountPercentage / 100);
+    total += discountedPrice * item.quantity;
   });
 
     const cartTotalElement = document.querySelector('.cart-total');

@@ -12,20 +12,27 @@ export default async function productList(category, selector) {
   renderListWithTemplate(productCardTemplate, ele, data);
 }
 
-function productCardTemplate(product) {
+function productCardTemplate(product) {  // Calculate discounted price, and display the discount
+  const discountPercentage = 10; // Assuming a fixed 10% discount
+  const discountedPrice = product.FinalPrice * (1 - discountPercentage / 100);  
   const baseUrl = window.location.origin;
+
   return `<li class="product-card">
-    <a href="${baseUrl}/product_pages/index.html?product=${product.Id}">
-      <img
+  <a href="${baseUrl}/product_pages/index.html?product=${product.Id}">
+    <img
         src=${product.Images.PrimaryMedium}
         alt=${product.Name}
       />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
-      <p class="product-card__price">${product.FinalPrice}</p></a
+      <p class="product-card__price">${product.FinalPrice}</p>
+      <p class="product-card__discount">Seasonal Sale! -${discountPercentage}% OFF (${discountedPrice.toFixed(2)})</p>
+      </a
     >
   </li>`;
 }
+
+
 
 export async function sortCards() {
   let category = getParam('category')
