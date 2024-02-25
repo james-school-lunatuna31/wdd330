@@ -29,10 +29,78 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = true) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = true
+) {
   if (clear) {
     parentElement.innerHTML = '';
   }
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
+
+export function renderWithTemplate(
+  templateFn,
+  parentElement,
+  callback,
+  data,
+  position = 'afterbegin',
+  clear = true
+) {
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  //const htmlStrings = list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, templateFn);
+  if (callback) {
+    callback(data);
+  }
+}
+
+export function loadTemplate(path) {
+  return async function () {
+    const res = await fetch(path);
+    if (res.ok) {
+      const html = await res.text();
+      return html;
+    }
+  };
+}
+
+export async function loadHeaderFooter() {
+  const headerTemplateFn = await loadTemplate('/partials/header.html')();
+  const footerTemplateFn = await loadTemplate('/partials/footer.html')();
+  const header = document.querySelector('header');
+  const footer = document.querySelector('footer');
+  renderWithTemplate(headerTemplateFn, header);
+  renderWithTemplate(footerTemplateFn, footer);
+  updateCartCounter();
+}
+
+export function updateCartCounter() {
+  let cartIcon = document.querySelector('.cart');
+  const existingCartCounter = document.querySelector('.cart-counter');
+  if (existingCartCounter) {
+    existingCartCounter.remove();
+  }
+  if (getItemQuantityInCart() > 0) {
+    cartIcon.insertAdjacentHTML(
+      'afterbegin',
+      `<span class="cart-counter">${getItemQuantityInCart()}</span>`
+    );
+  }
+}
+
+function getItemQuantityInCart() {
+  let cart = getLocalStorage('so-cart') || [];
+  let cartItems = cart.flat(); //cartItems is 2D and it needs to be 1D
+  let total = 0;
+  cartItems.forEach((item) => {
+    total += item.quantity;
+  });
+  return total;
 }

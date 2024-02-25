@@ -1,5 +1,14 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { loadCart } from './shoppingCart.mjs';
+import { getLocalStorage, loadHeaderFooter, setLocalStorage, updateCartCounter } from './utils.mjs';
 
+init()
+
+
+async function init(){
+  await  loadHeaderFooter();
+  await loadCart();
+  renderCartContents();
+}
 function renderCartContents() {
   // old:   const cartItems = getLocalStorage('so-cart');
   /* W2: Your first trello card SOLUTION
@@ -10,19 +19,21 @@ function renderCartContents() {
   modify this function to allow for multiple items.
   ---------------------------------------
   */
+  updateCartTotal();
 
   const cartItems = getLocalStorage('so-cart') || [];
   if (cartItems.length) {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector('.product-list');
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
     document.querySelectorAll('.close_icon').forEach(button => {
     button.addEventListener('click', function() {
       const productId = this.dataset.id;
       removeProductFromCart(productId);
-      updateCartTotal()
       renderCartContents();
     });
   });
+  
   }else{
         document.querySelector('.product-list').innerHTML = '<p>Your cart is empty.<p>'
   }
@@ -101,7 +112,8 @@ function removeProductFromCart(productId) {
      }
     }
   setLocalStorage('so-cart', cartItems);
+  updateCartCounter();
 }
 }
-document.addEventListener('DOMContentLoaded', updateCartTotal);
-renderCartContents();
+
+document.addEventListener('DOMContentLoaded', renderCartContents);
