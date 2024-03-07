@@ -273,3 +273,18 @@ footer {
 .cart-footer.hide {
   display: none;
 }
+#alert-list{
+  position:absolute;
+  left: -0%;
+  top: 2%;
+  width: 100%;
+  z-index: 100;
+}
+#alert-list > p{
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+  width: 20%;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
